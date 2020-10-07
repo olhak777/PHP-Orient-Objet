@@ -2,6 +2,12 @@
 
 # Importation de notre classe Ecole
 require_once 'models/Ecole.php';
+
+# Importation de notre classe Eleve
+require_once 'models/Eleve.php';
+
+# Importation de notre classe Classe
+require_once 'models/Classe.php';
 /**
  * Création d'un instance de la class Ecole.
  * Notre variable $ecole est un objet de cette class.
@@ -58,35 +64,95 @@ $ecole->setNom('WF3 Paris');
 echo '<h1>' . $ecole->getNom() . '</h1>';
 
 
-/*-----------------Classe-----------------------------*/
 
-require_once 'models/Classe.php';
-$classe = new Classe(
-    '5B',
-    20,
-    'Rafael'
-);
+
+
+/*-----------------Creation des Eleve-----------------------------*/
+$eleve1 = new Eleve('Zaklin', 'POCANDI', 49, 'femme');
+$eleve2 = new Eleve('Koumba', 'KONARE', 28, 'femme');
+$eleve3 = new Eleve('Emmanuelle', 'ARNAUD', 33, 'femme');
+$eleve4 = new Eleve('Sandra', 'JACQUES', 48, 'femme');
+
+
+
 echo '<pre>';
-print_r( $classe);
+print_r( $eleve1);
+print_r( $eleve2);
+print_r( $eleve3);
+print_r( $eleve4);
 echo '</pre>';
 
-echo '<h1>' . $classe->getNom() . '</h1>';
+echo '<h1>' . $eleve1->getNom() . '</h1>';
 
 
-/*-----------------Eleve-----------------------------*/
-require_once 'models/Eleve.php';
-$eleve = new Eleve(
-    'Patrick',
-    'Swayze',
-    15,
-    'h'
+/*-----------------Création des Classes-----------------------------*/
+$front = new Classe('Front', 18, 'Fahdi NASRI');
+$back = new Classe('Back', 18, 'Mathieu QUITTARD');
+$full = new Classe('Fullstack', 18, 'Hugo LIEGEARD');
 
-);
+
+
+'<hr><hr>';
+
+#Problématique
+# Comment affecter chaque élève dans une classe ?
+$front->addEleve($eleve2);
+$front->addEleve($eleve4);
+
+$back->addEleve($eleve1);
+$full->addEleve($eleve3);
 echo '<pre>';
-print_r( $eleve);
+print_r( $front);
+print_r( $back);
+print_r( $full);
 echo '</pre>';
 
-echo '<h1>' . $eleve->getNom() . '</h1>';
+# Comment affecter chaque classe dans une école ?
+
+$ecole->addClasse($front);
+$ecole->addClasse($back);
+$ecole->addClasse($full);
+
+
+echo '<pre>';
+print_r($ecole);
+echo '</pre>';
+
+/**
+ * CONSIGNE : En partant de l'objet $ecole ; affichez la liste ol, ul, li des classes les étudiants.
+ */
+#1. Recupererez via $ecole et afficher la liste des classes
+$classes = $ecole->getClasses();
+
+
+
+# On va parcourir nos classes
+    echo '<ol>';
+/** @var Classe $classe */
+foreach ($classes as $classe) {
+
+    # Afficher le nom de la classe
+    echo '<li>';
+         echo $classe->getNom();
+    echo '</li>';
+
+    #2. Récuperer et afficher la liste des éleves
+    $eleves = $classe->getEleves();
+    echo '<ul>';
+    /** @var Eleve $eleve */
+    foreach ($eleves as $eleve) {
+    echo '<li>';
+    echo $eleve->getPrenom() . ' ' . $eleve->getNom();
+    echo '</li>';
+
+    } #endforeache eleves
+
+    echo '</ul>';
+
+
+
+} #endforeach classes
+   echo '</ol>';
 
 
 

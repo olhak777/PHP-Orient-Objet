@@ -15,6 +15,7 @@ class Ecole
     private $capacite;
     private $type;
     private $directeur;
+    private $classes;
 
     /**
      *  Pour permettre maintenant l'attribution de valeurs à mes propriétés, je vais mettre crée un CONSTRUCTEUR.
@@ -28,6 +29,7 @@ class Ecole
        $this->capacite = $capacite;
        $this->type = $type;
        $this->directeur = $directeur;
+       $this->classes = [];
 
     }
     /*-- ---------creation de getters-------*/
@@ -47,6 +49,9 @@ class Ecole
     public function getDirecteur() {
         return $this->directeur;
     }
+    public function getClasses() {
+        return $this->classes;
+    }
 
     /*-- ---------creation de setters-------*/
 
@@ -64,6 +69,12 @@ class Ecole
     }
     public function setDirecteur($directeur) {
         $this->directeur = $directeur;
+    }
+    public function setClasses($classes) {
+        $this->classes = $classes;
+    }
+    public function addClasse(Classe $classe) {
+        $this->classes[] = $classe;
     }
 
 
